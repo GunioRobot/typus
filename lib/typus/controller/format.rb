@@ -28,19 +28,25 @@ module Typus
 
         options = { :conditions => @conditions, :batch_size => 1000 }
 
+        c = Iconv.new('ISO-8859-1', 'UTF-8')
         ::FasterCSV.open(filename, 'w', :col_sep => ';') do |csv|
-          csv << fields.keys
+          csv << fields.keys.map{ |col| c.iconv(col) }
           @resource.find_in_batches(options) do |records|
             records.each do |record|
               csv << fields.map do |key, value|
                        case value
                        when :transversal
                          a, b = key.split(".")
-                         record.send(a).send(b)
+                         begin
+                           str = record.send(a).send(b)
+                           c.iconv str
+                          rescue
+                            str
+                          end
                        when :belongs_to
                          record.send(key).to_label
                        else
-                         record.send(key)
+                         c.iconv record.send(key)
                        end
                      end
             end
