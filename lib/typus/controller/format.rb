@@ -46,7 +46,7 @@ module Typus
                        when :belongs_to
                          record.send(key).to_label
                        else
-                         c.iconv record.send(key)
+                         (record.send(key).is_a? String) ? c.iconv(record.send(key)) : record.send(key)
                        end
                      end
             end
