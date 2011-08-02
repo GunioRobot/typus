@@ -29,7 +29,7 @@ module Typus
         options = { :conditions => @conditions, :batch_size => 1000 }
 
         c = Iconv.new('ISO-8859-1', 'UTF-8')
-        ::FasterCSV.open(filename, 'w', :col_sep => ';') do |csv|
+        ::FasterCSV.open(filename, 'w') do |csv|
           csv << fields.keys.map{ |col| c.iconv(col) }
           @resource.find_in_batches(options) do |records|
             records.each do |record|
@@ -44,7 +44,7 @@ module Typus
                             str
                           end
                        when :belongs_to
-                         record.send(key).to_label
+                         record.send(key).try(:to_label)
                        else
                          (record.send(key).is_a? String) ? c.iconv(record.send(key)) : record.send(key)
                        end
