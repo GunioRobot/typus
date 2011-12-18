@@ -197,7 +197,7 @@ class Admin::PostsControllerTest < ActionController::TestCase
       assert_select "form"
     end
 
-    # We have 3 inputs: 1 hidden which is the UTF8 stuff, one which is the 
+    # We have 3 inputs: 1 hidden which is the UTF8 stuff, one which is the
     # Post#title and finally the submit button.
     should "have 3 inputs" do
       assert_select "form input", 3

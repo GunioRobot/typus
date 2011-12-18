@@ -188,7 +188,7 @@ class ActiveRecordTest < ActiveSupport::TestCase
       expected = case ENV["DB"]
                  when "postgresql"
                    ["LOWER(TEXT(typus_users.first_name)) LIKE '%francesc%'",
-                    "LOWER(TEXT(typus_users.last_name)) LIKE '%francesc%'", 
+                    "LOWER(TEXT(typus_users.last_name)) LIKE '%francesc%'",
                     "LOWER(TEXT(typus_users.email)) LIKE '%francesc%'",
                     "LOWER(TEXT(typus_users.role)) LIKE '%francesc%'"]
                  else

@@ -6,7 +6,7 @@
 *
 *   Example:
 *       <input type="text" autocomplete="/url/to/autocomplete">
-* 
+*
 * Optionally, you can use a jQuery selector to specify a field that can
 * be updated with the element id whenever you find a matching value
 *
